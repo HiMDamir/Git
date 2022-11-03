@@ -138,6 +138,8 @@ public class Main {
                 break;
             }
         }
+
+
         if (Character.isDigit(strChar.charAt(0))){
             if (Integer.valueOf(strChar)>10){
                 checkNumCount=true;
@@ -183,6 +185,7 @@ public class Main {
                     break;
             }
         }
+
         if (checkNumCount){
             prtText = "Вводимые значения не должны превышать 10";
             try {
@@ -249,17 +252,19 @@ public class Main {
                         strChar = "10";
                         break;
                 }
+                System.out.println(strChar);
                 if(k==1){
                     secondNum=strChar;
                 }else{
                     firsNum=strChar;
                 }
             }
-
         }else{
             firsNum=strChar;
             secondNum=nextStrChar;
         }
+
+        /*
         int result =0;
         if (calcCount<2){
             switch (actionType) {
@@ -277,14 +282,14 @@ public class Main {
                     break;
             }
         }
-        String strResult=String.valueOf(result);
+        */
+        String strResult=calc(String.valueOf(firsNum)+String.valueOf(actionType)+String.valueOf(secondNum));
         String strAllResult="";
-
         if (charLetter) {
-            for (int k = 0; k < Integer.valueOf(String.valueOf(result).length()); k++) {
-                if ( Integer.valueOf(String.valueOf(result).length()) < 2 )
+            for (int k = 0; k < Integer.valueOf(strResult.length()); k++) {
+                if ( Integer.valueOf(strResult.length()) < 2 )
                 {
-                    switch (Integer.valueOf(String.valueOf(result).charAt(0))) {
+                    switch (Integer.valueOf(strResult)) {
                         case (1):
                             strAllResult = "I";
                             break;
@@ -388,6 +393,54 @@ public class Main {
 
         if (calcCount<2){
             System.out.println("Результата вычисления: "+strAllResult);
+
+
         }
     }
+    public static String calc(String input) {
+        String actionT ="";
+        String inputI ="";
+        String inputN ="";
+        int nk = 0 ;
+        for (int i = 0; i < input.length(); i++) {
+            inputI = String.valueOf(input.charAt(i));
+            nk = i;
+            if (inputI.equals("+") || inputI.equals("-") || inputI.equals("*") || inputI.equals("/")) {
+                for (int k = 0; k < i; k++) {
+                    if (k == 0) {
+                        inputI  = String.valueOf(input.charAt(k));
+                    } else {
+                        inputI  = inputI  + String.valueOf(input.charAt(k));
+                    }
+                }
+                for (int n = i+1; n < input.length(); n++) {
+                    if (n == i+1) {
+                        inputN = String.valueOf(input.charAt(n));
+                    } else {
+                        inputN = inputN + String.valueOf(input.charAt(n));
+                    }
+                }
+                break;
+            }
+        }
+        actionT= String.valueOf( input.charAt(nk) );
+        //String[] nums = input.split(String.valueOf(actionT));
+                int result =0;
+                switch (actionT ) {
+                    case ("+"):
+                        result=Integer.valueOf(inputI)+Integer.valueOf(inputN);
+                        break;
+                    case ("/"):
+                        result=Integer.valueOf(inputI)/Integer.valueOf(inputN);
+                        break;
+                    case ("-"):
+                        result=Integer.valueOf(inputI)-Integer.valueOf(inputN);
+                        break;
+                    case ("*"):
+                        result=Integer.valueOf(input)*Integer.valueOf(inputN);
+                        break;
+                }
+                input = String.valueOf(result);
+        return input;
+    };
 }
